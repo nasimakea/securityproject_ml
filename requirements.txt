@@ -3,4 +3,6 @@ pandas
 python-dotenv
 pymongo
 certifi
--e .
+scikit-learn
+pymongo[srv]==3.6
+##-e .

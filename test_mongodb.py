@@ -1,21 +1,23 @@
-
-from dotenv import load_dotenv
-load_dotenv()
 import os
+from dotenv import load_dotenv
+import pymongo
 
+load_dotenv()
 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-uri = os.getenv("MONGO_DB_URL")
+MONGO_DB_URL = os.getenv("MONGO_DB_URL")
+print("Mongo URL:", MONGO_DB_URL)
 
+client = pymongo.MongoClient(MONGO_DB_URL)
 
+print("\nDatabases:")
+print(client.list_database_names())
 
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
+db = client["network_security"]  # change ONLY if your constant is different
 
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+print("\nCollections:")
+print(db.list_collection_names())
+
+collection = db["phishing_data"]  # change ONLY if your constant is different
+
+print("\nDocument count:", collection.count_documents({}))
+print("Sample document:", collection.find_one())
