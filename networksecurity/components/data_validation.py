@@ -73,8 +73,7 @@ class DataValidation:
         try :
             train_file_path=self.data_ingestion_artifact.trained_file_path
             test_file_path=self.data_ingestion_artifact.test_file_path
-
-            ## read data from train and test
+        ## read data from train and test
             train_dataframe=DataValidation.read_data(train_file_path)
             test_dataframe=DataValidation.read_data(test_file_path)
             
@@ -107,6 +106,9 @@ class DataValidation:
                 invalid_test_file_path=None,
                 drift_report_file_path=self.data_validation_config.drift_report_file_path,
             )
+            return data_validation_artifact
+
+    
 
         except Exception as e :
             raise NetworkSecurityException(e,sys)
